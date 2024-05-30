@@ -32,3 +32,12 @@ rule indexbam:
         "{sample}.sorted.bam.bai"
     shell:
     "samtools index {input}"
+
+# should run after indexbam
+rule calculate_depth:
+    input:
+        rules.sortbam.output
+    output:
+        "{sample}_cov.txt"
+    shell:
+    "samtools depth -aa {input} > {output}"
