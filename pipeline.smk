@@ -49,3 +49,12 @@ rule flagstat:
         "{sample}_reads_mapped.txt"
     shell:
     "samtools flagstat {input} > {output}"
+
+rule calc_avg_depth:
+    input:
+        rules.sortbam.output
+    output:
+        "{sample}_reads_mapped.txt"
+    shell:
+    """awk "{sum+=\$3} END {print sum/NR}" {}/{}_cov.txt"""
+
