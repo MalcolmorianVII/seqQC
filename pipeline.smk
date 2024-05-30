@@ -17,3 +17,10 @@ rule sam2bam:
     shell:
     "samtools view -S -b {input} > {output}"
 
+rule sortbam:
+    input:
+        rules.sam2bam.output
+    output:
+        "{sample}.sorted.bam"
+    shell:
+    "samtools sort -o {output} {input}"
