@@ -65,3 +65,11 @@ rule calc_avg_depth_10X:
         "{sample}_reads_mapped.txt"
     shell:
     """awk "\$3 >= 10 {sum+=1} END {print (sum / 2063372) * 100}" {}/{}_cov.txt"""
+
+rule calc_avg_depth_30X:
+    input:
+        rules.sortbam.output
+    output:
+        "{sample}_reads_mapped.txt"
+    shell:
+    """awk "\$3 >= 30 {sum+=1} END {print (sum / 2063372) * 100}" {}/{}_cov.txt"""
