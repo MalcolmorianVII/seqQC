@@ -73,3 +73,12 @@ rule calc_avg_depth_30X:
         "{sample}_reads_mapped.txt"
     shell:
     """awk "\$3 >= 30 {sum+=1} END {print (sum / 2063372) * 100}" {}/{}_cov.txt"""
+
+
+rule calc_map_stats:
+    input:
+        rules.sortbam.output
+    output:
+        "{sample}_reads_mapped.txt"
+    shell:
+    """awk "/^([0-9]+) \\+ 0 in total/{total_reads = \$1} /^([0-9]+) \\+ 0 mapped/{reads_mapped = \$1; percentage = \$(NF - 2); print total_reads, reads_mapped, percentage}" {}/{}_reads_mapped.txt"""
