@@ -9,5 +9,11 @@ rule map:
     shell:
     "bwa mem {ref} {r1} {r2} > {wildcards.sample}.sam"
 
-
+rule sam2bam:
+    input:
+        rules.map.output
+    output:
+        "{sample}.bam"
+    shell:
+    "samtools view -S -b {input} > {output}"
 
