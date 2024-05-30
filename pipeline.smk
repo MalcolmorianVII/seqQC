@@ -41,3 +41,11 @@ rule calculate_depth:
         "{sample}_cov.txt"
     shell:
     "samtools depth -aa {input} > {output}"
+
+rule flagstat:
+    input:
+        rules.sortbam.output
+    output:
+        "{sample}_reads_mapped.txt"
+    shell:
+    "samtools flagstat {input} > {output}"
