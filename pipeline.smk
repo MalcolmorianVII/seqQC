@@ -58,3 +58,10 @@ rule calc_avg_depth:
     shell:
     """awk "{sum+=\$3} END {print sum/NR}" {}/{}_cov.txt"""
 
+rule calc_avg_depth_10X:
+    input:
+        rules.sortbam.output
+    output:
+        "{sample}_reads_mapped.txt"
+    shell:
+    """awk "\$3 >= 10 {sum+=1} END {print (sum / 2063372) * 100}" {}/{}_cov.txt"""
