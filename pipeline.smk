@@ -24,3 +24,11 @@ rule sortbam:
         "{sample}.sorted.bam"
     shell:
     "samtools sort -o {output} {input}"
+
+rule indexbam:
+    input:
+        rules.sortbam.output
+    output:
+        "{sample}.sorted.bam.bai"
+    shell:
+    "samtools index {input}"
